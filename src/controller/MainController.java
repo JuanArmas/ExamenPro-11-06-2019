@@ -52,7 +52,7 @@ public class MainController {
 		BaseDatos bd = new BaseDatos("localhost:3306",  "banco", "root", "");
 		Connection conexion = bd.getConexion();
 		Statement stmt = conexion.createStatement();
-		ResultSet rst = stmt.executeQuery("SELECT * FROM movs order by id, idcta,fecha");
+		ResultSet rst = stmt.executeQuery("SELECT * FROM movs order by idcta");
 		ResultSetMetaData rstMeta = rst.getMetaData();
 		rstMeta.getColumnCount(); 
 		BufferedWriter fichero = new BufferedWriter(new FileWriter(rutaAlmacenarFichero));
@@ -198,8 +198,7 @@ public class MainController {
 				String nifPropietario = rS.getString("nif");
 				Vehiculo unCoche = new Vehiculo(codigo, nifPropietario, matricula, estado, precio);				
 
-				ArrayList<Vehiculo> unVehiculo = null;
-				
+				//ArrayList<Vehiculo> unVehiculo = null;
 
 				Propietario propietario = null;
 				
