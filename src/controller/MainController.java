@@ -17,6 +17,7 @@ import java.util.Set;
 import modelo.Cuenta;
 import modelo.Movimiento;
 import modelo.Propietario;
+import modelo.Vehiculo;
 
 
 public class MainController {
@@ -33,12 +34,13 @@ public class MainController {
 		// ejercicios.mostrarMovimientosCuenta(rutaFicheroMovimientos, rutaFicheroCuentas); // CODIGO FUNCIONAL; DESCOMENTAR,
 		
 		/**************LLAMADA EJERCICIO 3************************************/
-		
+		HashMap<String, Propietario> mapaPropietarios = ejercicios.ejercicio3();		
+		// System.out.println(propietarios);		
+		ejercicios.mostrarPropietarios(mapaPropietarios);
 		
 		
 		System.out.println("Fin del programa");
 		System.exit(0);
-
 	}
 
 	/****************************INICIO EJERCICIO 1************************************/
@@ -177,11 +179,6 @@ public class MainController {
 	
 	/****************************INICIO EJERCICIO 3************************************/
 	
-	// partir de la tabla vehiculos, que hay que restaurar desde el fichero backupVehiculos.sql ,
-	// desarrollar un método que devuelva un objeto de la clase
-	// La clase Propietario contiene, como propiedad, la lista de los vehiculos que tiene el propietario.
-	// La clave del mapa representa el nif del propietario
-	
 	public HashMap<String, Propietario> ejercicio3(){
 		HashMap<String, Propietario> mapaPropietarios = new HashMap<String, Propietario>();
 		try {
@@ -196,18 +193,40 @@ public class MainController {
 				int codigo = rS.getInt("codigo");
 				String matricula = rS.getString("matricula");
 				String fecha = rS.getString("fecha");
-				char estado = rS.getString("estado").charAt(0);
-				int precio = rS.getInt("precio");
-				String nif = rS.getString("nif");
-				Propietario propietario = new Propietario();
+				String estado = rS.getString("estado");
+				float precio = rS.getFloat("precio");
+				String nifPropietario = rS.getString("nif");
+				Vehiculo unCoche = new Vehiculo(codigo, nifPropietario, matricula, estado, precio);				
+				ArrayList<Vehiculo> unVehiculo = new ArrayList<Vehiculo>();
+				unVehiculo.add(unCoche);
+				Propietario propietario = null;
+				
+				if(!mapaPropietarios.containsKey(nifPropietario)) {
+					mapaPropietarios.put(nifPropietario, propietario = new Propietario());
+					propietario.setNif(nifPropietario);
+					propietario.setVehiculos(unVehiculo);
+				}
+					mapaPropietarios.get(nifPropietario).setVehiculos(unVehiculo);
+				
+				
 				
 			}
 		} catch (SQLException e) {
 		}
 		return mapaPropietarios;
 	}
-	
-	
+
+	public void mostrarPropietarios(HashMap<String, Propietario> ejercicio3) {
+		Set<String> clavesEjercicio3 = ejercicio3.keySet();
+		for(String nifPropietarios : clavesEjercicio3) {
+			Propietario propietario = ejercicio3.get(nifPropietarios);
+			System.out.println("Propietario con nif: " + propietario.getNif() + "-->");
+			ArrayList<Vehiculo> listadoVehiculos = propietario.getVehiculos();
+			for(int i = 0; i < listadoVehiculos.size(); i++) {
+				System.out.println(listadoVehiculos.get(i).getMatricula());
+			}
+		}
+	}
 	
 	
 	

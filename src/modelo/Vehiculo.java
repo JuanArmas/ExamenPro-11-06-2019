@@ -11,6 +11,16 @@ public class Vehiculo {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Vehiculo(int codigo, String nifPropietario, String matricula, String estado, float precio) {
+		super();
+		this.codigo = codigo;
+		this.nifPropietario = nifPropietario;
+		this.matricula = matricula;
+		this.estado = estado;
+		this.precio = precio;
+	}
+
 	public int getCodigo() {
 		return codigo;
 	}
