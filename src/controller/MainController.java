@@ -16,6 +16,7 @@ import java.util.Set;
 
 import modelo.Cuenta;
 import modelo.Movimiento;
+import modelo.Propietario;
 
 
 public class MainController {
@@ -76,8 +77,8 @@ public class MainController {
 	}
 	
 	/****************************INICIO EJERCICIO 2************************************/
-	// A partir de los ficheros cuentas.txt y movimientos.txt, que se adjuntan, obtener un listado por
-	// la consola, en el que aparezcan los movimientos pertenecientes a cada cuenta
+	// EN EL EJERCICIO 2 HE OPTADO POR LLAMAR A LOS DISTINTOS METODOS POR LA INFORMACION QUE MANEJAN PARA FACILITAR 
+	// EL USO DE LA MISMA EN EL METODO QUE USARE A MODO DE "VISTA"
 	public HashMap <Integer,Cuenta> cuentas(String rutaFicheroCuentas){
 		HashMap <Integer, Cuenta> mapaCuentas = new HashMap <Integer, Cuenta>();
 		try {
@@ -141,7 +142,7 @@ public class MainController {
 		}
 		return null;
 	}
-	/*BORRAR DESDE AQUI*/
+
 	public void mostrarMovimientosCuenta(String rutaFicheroMovimientos, String rutaFicheroCuentas) {
 		HashMap<Integer, Cuenta> mapaCuentas = cuentas(rutaFicheroCuentas);
 		HashMap<Integer, ArrayList<Movimiento>> movimientos = listadoMovimientos(rutaFicheroMovimientos);
@@ -173,8 +174,46 @@ public class MainController {
 		}
 		
 	}
-	/*HASTA AQUI*/
-	
 	
 	/****************************INICIO EJERCICIO 3************************************/
+	
+	// partir de la tabla vehiculos, que hay que restaurar desde el fichero backupVehiculos.sql ,
+	// desarrollar un método que devuelva un objeto de la clase
+	// La clase Propietario contiene, como propiedad, la lista de los vehiculos que tiene el propietario.
+	// La clave del mapa representa el nif del propietario
+	
+	public HashMap<String, Propietario> ejercicio3(){
+		HashMap<String, Propietario> mapaPropietarios = new HashMap<String, Propietario>();
+		try {
+			BaseDatos bd = new BaseDatos("localhost:3306",  "vehiculos", "root", "");
+			Connection conexion = bd.getConexion();
+			Statement stmt = conexion.createStatement();
+			ResultSet rS = stmt.executeQuery("select * from vehiculos;");
+			ResultSetMetaData rSMeta = rS.getMetaData();
+			rSMeta.getColumnCount(); 
+			// codigo, Strig matricula, String fecha, char estado, Int precio, String nif
+			while(rS.next()) { 	
+				int codigo = rS.getInt("codigo");
+				String matricula = rS.getString("matricula");
+				String fecha = rS.getString("fecha");
+				char estado = rS.getString("estado").charAt(0);
+				int precio = rS.getInt("precio");
+				String nif = rS.getString("nif");
+				Propietario propietario = new Propietario();
+				
+			}
+		} catch (SQLException e) {
+		}
+		return mapaPropietarios;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
