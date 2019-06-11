@@ -197,16 +197,19 @@ public class MainController {
 				float precio = rS.getFloat("precio");
 				String nifPropietario = rS.getString("nif");
 				Vehiculo unCoche = new Vehiculo(codigo, nifPropietario, matricula, estado, precio);				
-				ArrayList<Vehiculo> unVehiculo = new ArrayList<Vehiculo>();
-				unVehiculo.add(unCoche);
+
+				ArrayList<Vehiculo> unVehiculo = null;
+				
+
 				Propietario propietario = null;
 				
 				if(!mapaPropietarios.containsKey(nifPropietario)) {
 					mapaPropietarios.put(nifPropietario, propietario = new Propietario());
 					propietario.setNif(nifPropietario);
-					propietario.setVehiculos(unVehiculo);
+					propietario.setVehiculos(new ArrayList<Vehiculo>());
+
 				}
-					mapaPropietarios.get(nifPropietario).setVehiculos(unVehiculo);
+					mapaPropietarios.get(nifPropietario).getVehiculos().add(unCoche);
 				
 				
 				
@@ -223,8 +226,10 @@ public class MainController {
 			System.out.println("Propietario con nif: " + propietario.getNif() + "-->");
 			ArrayList<Vehiculo> listadoVehiculos = propietario.getVehiculos();
 			for(int i = 0; i < listadoVehiculos.size(); i++) {
-				System.out.println(listadoVehiculos.get(i).getMatricula());
+				System.out.println();
+				System.out.println("\tMATRICULA -->"+listadoVehiculos.get(i).getMatricula());
 			}
+			System.out.println();
 		}
 	}
 	
