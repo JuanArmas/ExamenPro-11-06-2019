@@ -1,0 +1,6 @@
+1#2#2019-01-03#compra de material#-50.0
+2#3#2019-01-03#ingreso en cuenta#120.0
+3#1#2019-01-04#factura telefono#-55.0
+4#5#2019-01-04#cobro cliente 23F#250.0
+5#2#2019-01-05#Ingreso cajero#120.0
+6#3#2019-01-05#Nomina A231#-70.0
